@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="auditorium2" class="com.epam.spring.hometask.beans.Auditorium">
+        <constructor-arg value="${auditorium2.name}"/>
+        <constructor-arg value="${auditorium2.seats}"/>
+        <constructor-arg value="#{'${auditorium2.vip}'.split(',')}"/>
+    </bean>
+
+    <bean id="auditorium1" class="com.epam.spring.hometask.beans.Auditorium">
+        <constructor-arg value="${auditorium1.name}"/>
+        <constructor-arg value="${auditorium1.seats}"/>
+        <constructor-arg value="#{'${auditorium1.vip}'.split(',')}"/>
+    </bean>
+</beans>

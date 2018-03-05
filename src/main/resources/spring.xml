@@ -2,61 +2,53 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:c="http://www.springframework.org/schema/c"
-       xsi:schemaLocation="
- 		http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		http://www.springframework.org/schema/util
- 		http://www.springframework.org/schema/util/spring-util-3.2.xsd
-        http://www.springframework.org/schema/context
- 		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-    <context:annotation-config/>
-
-    <import resource="loggers.xml" />
+    <import resource="DAO.xml"/>
+    <import resource="users.xml"/>
+    <import resource="events.xml"/>
+    <import resource="discounts.xml"/>
+    <import resource="auditoriums.xml"/>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:client.properties</value>
+                <value>classpath:auditoriums.properties</value>
             </list>
         </property>
-        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreResourceNotFound" value="true"/>
         <property name="systemPropertiesMode">
             <util:constant
-                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         </property>
     </bean>
 
-    <bean id="client" class="by.epam.spring.core.beans.Client"
-          p:greeting="${greeting}">
-        <constructor-arg index="0" value="${id}" />
-        <constructor-arg value="${name}" />
+    <bean id="auditoriumService" class="com.epam.spring.hometask.service.AuditoriumServiceImpl">
+        <property name="auditoriumDAO" ref="auditoriumDAO"/>
     </bean>
 
-    <util:map id="loggerMap">
-        <entry key="INFO" value-ref="consoleEventLogger" />
-        <entry key="ERROR" value-ref="combinedEventLogger" />
-    </util:map>
-
-    <bean id="app" class="by.epam.spring.core.App">
-        <constructor-arg ref="client" />
-        <constructor-arg ref="cacheFileEventLogger" />
-        <constructor-arg ref="loggerMap"/>
+    <bean id="eventService" class="com.epam.spring.hometask.service.EventServiceImpl">
+        <property name="eventDAO" ref="eventDAO"/>
     </bean>
 
-    <bean id="event" class="by.epam.spring.core.beans.Event" scope="prototype">
-        <constructor-arg>
-            <bean class="java.util.Date" />
-        </constructor-arg>
-        <constructor-arg ref="dateFormat" />
+    <bean id="userService" class="com.epam.spring.hometask.service.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
     </bean>
 
-    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance" />
+    <bean id="bookingService" class="com.epam.spring.hometask.service.BookingServiceImpl">
+        <property name="discountService" ref="discountService"/>
+        <property name="userService" ref="userService"/>
+        <property name="auditoriumService" ref="auditoriumService"/>
+    </bean>
 
-    <!--<bean id="monitor" class="by.epam.spring.core.util.Monitor"/>-->
-    <!--<bean id="awared" class="by.epam.spring.core.util.AwareBean" init-method="init"/>-->
+    <bean id="discountService"
+          class="com.epam.spring.hometask.service.DiscountServiceImpl">
+        <constructor-arg ref="discountDAO"/>
+    </bean>
+
+    <!--<bean id="event" class="com.epam.spring.hometask.beans.Event" scope="prototype" init-method="init"/>-->
 
 </beans>

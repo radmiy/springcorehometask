@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <bean id="dateTimeFormat" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
+        <constructor-arg value="yyyy-MM-dd HH:mm"/>
+    </bean>
+
+    <bean id="2018-03-05 15:00" class="java.time.LocalDateTime" factory-method="parse">
+        <constructor-arg value="2018-03-05 15:00"/>
+        <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="2018-03-06 15:00" class="java.time.LocalDateTime" factory-method="parse">
+        <constructor-arg value="2018-03-06 15:00"/>
+        <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="2018-03-07 15:00" class="java.time.LocalDateTime" factory-method="parse">
+        <constructor-arg value="2018-03-07 15:00"/>
+        <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="2018-03-14 15:00" class="java.time.LocalDateTime" factory-method="parse">
+        <constructor-arg value="2018-03-14 15:00"/>
+        <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="2018-03-15 15:00" class="java.time.LocalDateTime" factory-method="parse">
+        <constructor-arg value="2018-03-15 15:00"/>
+        <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="event1" class="com.epam.spring.hometask.beans.Event">
+        <constructor-arg value="Black Panther 3D"/>
+        <constructor-arg>
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="2018-03-05 15:00"/>
+                <ref bean="2018-03-06 15:00"/>
+                <ref bean="2018-03-07 15:00"/>
+            </util:set>
+        </constructor-arg>
+        <constructor-arg value="25"/>
+        <constructor-arg value="HIGH"/>
+        <constructor-arg>
+            <util:map map-class="java.util.TreeMap">
+                <entry key-ref="2018-03-05 15:00" value-ref="auditorium1"/>
+                <entry key-ref="2018-03-06 15:00" value-ref="auditorium1"/>
+                <entry key-ref="2018-03-07 15:00" value-ref="auditorium1"/>
+            </util:map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="event2" class="com.epam.spring.hometask.beans.Event">
+        <constructor-arg value="Game Night"/>
+        <constructor-arg>
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="2018-03-05 15:00"/>
+                <ref bean="2018-03-06 15:00"/>
+                <ref bean="2018-03-07 15:00"/>
+            </util:set>
+        </constructor-arg>
+        <constructor-arg value="15"/>
+        <constructor-arg value="MID"/>
+        <constructor-arg>
+            <util:map map-class="java.util.TreeMap">
+                <entry key-ref="2018-03-05 15:00" value-ref="auditorium2"/>
+                <entry key-ref="2018-03-06 15:00" value-ref="auditorium2"/>
+                <entry key-ref="2018-03-07 15:00" value-ref="auditorium2"/>
+            </util:map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="event3" class="com.epam.spring.hometask.beans.Event">
+        <constructor-arg value="Ice"/>
+        <constructor-arg>
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="2018-03-14 15:00"/>
+                <ref bean="2018-03-15 15:00"/>
+            </util:set>
+        </constructor-arg>
+        <constructor-arg value="5"/>
+        <constructor-arg value="LOW"/>
+        <constructor-arg>
+            <util:map map-class="java.util.TreeMap">
+                <entry key-ref="2018-03-14 15:00" value-ref="auditorium1"/>
+                <entry key-ref="2018-03-15 15:00" value-ref="auditorium2"/>
+            </util:map>
+        </constructor-arg>
+    </bean>
+</beans>

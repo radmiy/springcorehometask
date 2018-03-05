@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <bean id="auditoriumDAO" class="com.epam.spring.hometask.dao.AuditoriumMemoryDAO">
+        <constructor-arg>
+            <util:set>
+                <ref bean="auditorium1"/>
+                <ref bean="auditorium2"/>
+            </util:set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="eventDAO" class="com.epam.spring.hometask.dao.EventMemoryDAO">
+        <constructor-arg>
+            <util:map>
+                <entry key="#{event1.id}" value-ref="event1"/>
+                <entry key="#{event2.id}" value-ref="event2"/>
+                <entry key="#{event3.id}" value-ref="event3"/>
+            </util:map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="userDAO" class="com.epam.spring.hometask.dao.UserMemoryDAO">
+        <constructor-arg>
+            <util:map>
+                <entry key="#{user1.id}" value-ref="user1"/>
+                <entry key="#{user2.id}" value-ref="user2"/>
+                <entry key="#{user3.id}" value-ref="user3"/>
+                <entry key="#{user4.id}" value-ref="user4"/>
+            </util:map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="discountDAO" class="com.epam.spring.hometask.dao.DiscountStrategiesMemoryDAO">
+        <property name="discountStrategies">
+            <list>
+                <ref bean="birthdayDiscountStrategy"/>
+                <ref bean="every10thTicketDiscountStrategy"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

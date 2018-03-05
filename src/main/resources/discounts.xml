@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="discountStrategy"
+          class="com.epam.spring.hometask.beans.discountstratigies.DiscountStrategyImpl"
+          abstract="true">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="birthdayDiscountStrategy"
+          class="com.epam.spring.hometask.beans.discountstratigies.BirthdayDiscountStrategy"
+          parent="discountStrategy">
+        <constructor-arg index="0" value="5"/>
+    </bean>
+
+    <bean id="every10thTicketDiscountStrategy"
+          class="com.epam.spring.hometask.beans.discountstratigies.Every10thTicketDiscountStrategy"
+          parent="discountStrategy">
+        <constructor-arg index="0" value="50"/>
+    </bean>
+</beans>
